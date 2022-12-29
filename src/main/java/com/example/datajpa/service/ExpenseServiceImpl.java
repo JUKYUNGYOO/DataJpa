@@ -3,6 +3,8 @@ package com.example.datajpa.service;
 import com.example.datajpa.entity.Expense;
 import com.example.datajpa.entity.ExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,9 +20,13 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Autowired
     private ExpenseRepository expenseRepo;
 
+//    @Override
+//    public List<Expense> getAllExpenses(){
+//        return expenseRepo.findAll();
+//    }
     @Override
-    public List<Expense> getAllExpenses(){
-        return expenseRepo.findAll();
+    public Page<Expense> getAllExpenses(Pageable page){
+        return expenseRepo.findAll(page);
     }
 
     @Override
@@ -34,7 +40,7 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public void deleteExpenseById(Long id) {
-        expenseRepo.deleteById(id);
+        expenseRepo.deleteById(id); 
     }
     @Override
     public Expense saveExpenseDetails(Expense expense){
@@ -57,5 +63,6 @@ public class ExpenseServiceImpl implements ExpenseService {
         return expenseRepo.save(existingExpense);
 
     }
+
 
 }
